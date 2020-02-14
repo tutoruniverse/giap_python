@@ -18,7 +18,7 @@ jobs:
         - pip install poetry coveralls
         - poetry install
       script:
-        - pytest
+        - pytest --cov=giap/
       after_success:
         - coveralls
 notifications:
