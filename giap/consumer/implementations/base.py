@@ -3,8 +3,8 @@ from typing import Any, Dict
 import requests
 
 from giap.errors import ConsumerError
-
-from .. import ConsumerInterface, Endpoint, Method
+from ..enums import Method
+from ..interface import ConsumerInterface
 
 
 class Consumer(ConsumerInterface):
@@ -14,12 +14,12 @@ class Consumer(ConsumerInterface):
 
     def send(
         self,
-        endpoint: Endpoint,
+        endpoint: str,
         data: Dict[str, Any],
         token: str,
         method: Method = Method.POST,
     ):
-        url = f"{self.base_url}{endpoint.value}"
+        url = f"{self.base_url}{endpoint}"
         headers = {"Authorization": f"Bearer {token}"}
 
         try:
@@ -27,4 +27,4 @@ class Consumer(ConsumerInterface):
 
             response.raise_for_status()
         except requests.RequestException as e:
-            raise ConsumerError(f"Could not send {data} to {endpoint.value}") from e
+            raise ConsumerError(f"Could not send {data} to {endpoint}") from e

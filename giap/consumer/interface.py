@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict
 
-from .enums import Endpoint, Method
+from .enums import Method
 
 
 class ConsumerInterface(ABC):
@@ -10,7 +10,7 @@ class ConsumerInterface(ABC):
     @abstractmethod
     def send(
         self,
-        endpoint: Endpoint,
+        endpoint: str,
         data: Dict[str, Any],
         token: str,
         method: Method = Method.POST,
