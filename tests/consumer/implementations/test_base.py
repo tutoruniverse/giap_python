@@ -1,17 +1,19 @@
 import pytest
+from hypothesis import given
+from hypothesis import strategies as st
 from requests.exceptions import RequestException
 
 from giap.consumer.implementations.base import Consumer
 from giap.errors import ConsumerError
 
 
-def test_base_consumer(mocker):
+@given(
+    st.text().map(lambda t: f"/{t}"), st.dictionaries(st.text(), st.text()), st.text()
+)
+def test_base_consumer(mocker, endpoint, data, token):
     mock_request = mocker.patch("giap.consumer.implementations.base.requests.request")
 
     consumer = Consumer()
-    endpoint = "/tests"
-    data = {}
-    token = "mock token"
 
     consumer.send(endpoint, data, token)
 
@@ -23,16 +25,16 @@ def test_base_consumer(mocker):
     )
 
 
-def test_base_consumer_error(mocker):
+@given(
+    st.text().map(lambda t: f"/{t}"), st.dictionaries(st.text(), st.text()), st.text()
+)
+def test_base_consumer_error(mocker, endpoint, data, token):
     mocker.patch(
         "giap.consumer.implementations.base.requests.request",
         side_effect=RequestException,
     )
 
     consumer = Consumer()
-    endpoint = "/tests"
-    data = {}
-    token = "mock token"
 
     with pytest.raises(ConsumerError) as exc_info:
         consumer.send(endpoint, data, token)
