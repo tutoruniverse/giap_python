@@ -45,9 +45,7 @@ def test_set_profile_properties(mock_consumer, id_, properties, token):
     giap.set_profile_properties(id_, properties)
 
     args = mock_consumer.send.call_args_list[-1][0]
-    assert args[0] == f"/profiles/{id_}"
-    assert args[1] == properties
-    assert args[2] == token
+    assert args == (f"/profiles/{id_}", properties, token)
 
     kwargs = mock_consumer.send.call_args_list[-1][1]
     assert kwargs["method"] is Method.PUT
