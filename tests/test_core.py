@@ -1,6 +1,7 @@
 from hypothesis import given
 from hypothesis import strategies as st
 
+from giap.consumer import Method
 from giap.core import GIAP
 
 
@@ -47,3 +48,6 @@ def test_set_profile_properties(mock_consumer, id_, properties, token):
     assert args[0] == f"/profiles/{id_}"
     assert args[1] == properties
     assert args[2] == token
+
+    kwargs = mock_consumer.send.call_args_list[-1][1]
+    assert kwargs["method"] is Method.PUT

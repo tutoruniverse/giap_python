@@ -1,7 +1,7 @@
 import time
 from typing import Any, Dict, Optional, Union
 
-from giap.consumer import ConsumerInterface, get_consumer
+from giap.consumer import ConsumerInterface, Method, get_consumer
 from giap.meta import __lib_name__, __version__
 
 
@@ -37,7 +37,7 @@ class GIAP:
     def set_profile_properties(self, id_: Union[int, str], properties: Dict[str, Any]):
         endpoint = f"/profiles/{id_}"
 
-        self._consumer.send(endpoint, properties, self._token)
+        self._consumer.send(endpoint, properties, self._token, method=Method.PUT)
 
     @property
     def unix_timestamp(self) -> int:

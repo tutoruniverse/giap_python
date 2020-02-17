@@ -13,6 +13,7 @@ class ConsumerInterface(ABC):
         endpoint: str,
         data: Dict[str, Any],
         token: str,
+        *,
         method: Method = Method.POST,
     ):
         pass
