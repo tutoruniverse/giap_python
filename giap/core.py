@@ -19,20 +19,20 @@ class GIAP:
     ):
         endpoint = "/events"
 
-        data: Dict[str, Any] = {
-            "_id": str(id_),
+        event_data: Dict[str, Any] = {
+            "_distinct_id": str(id_),
             "_name": name,
             "_time": self.unix_timestamp,
             "_lib": __lib_name__,
             "_lib_version": __version__,
         }
 
-        data.update(properties)
+        event_data.update(properties)
 
         if ip_address is not None:
-            data["_sender_ip"] = ip_address
+            event_data["_sender_ip"] = ip_address
 
-        self._consumer.send(endpoint, data, self._token)
+        self._consumer.send(endpoint, {"events": [event_data]}, self._token)
 
     def set_profile_properties(self, id_: Union[int, str], properties: Dict[str, Any]):
         endpoint = f"/profiles/{id_}"

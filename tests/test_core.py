@@ -12,7 +12,7 @@ from giap.core import GIAP
     st.one_of(st.none(), st.ip_addresses().map(str)),
     st.text(),
 )
-def test_tract(mock_consumer, id_, name, properties, ip_address, token):
+def test_track(mock_consumer, id_, name, properties, ip_address, token):
     giap = GIAP(token)
 
     giap.track(id_, name, properties, ip_address)
@@ -21,8 +21,8 @@ def test_tract(mock_consumer, id_, name, properties, ip_address, token):
     assert args[0] == "/events"
     assert args[2] == token
 
-    data = args[1]
-    assert data["_id"] == str(id_)
+    data = args[1]["events"][0]
+    assert data["_distinct_id"] == str(id_)
     assert data["_name"] == name
     assert isinstance(data["_time"], int)
     assert "_lib" in data
