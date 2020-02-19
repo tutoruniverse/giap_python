@@ -20,17 +20,17 @@ class GIAP:
         endpoint = "/events"
 
         event_data: Dict[str, Any] = {
-            "_distinct_id": str(id_),
-            "_name": name,
-            "_time": self.unix_timestamp,
-            "_lib": __lib_name__,
-            "_lib_version": __version__,
+            "$distinct_id": str(id_),
+            "$name": name,
+            "$time": self.unix_timestamp_in_ms,
+            "$lib": __lib_name__,
+            "$lib_version": __version__,
         }
 
         event_data.update(properties)
 
         if ip_address is not None:
-            event_data["_sender_ip"] = ip_address
+            event_data["$sender_ip"] = ip_address
 
         self._consumer.send(endpoint, {"events": [event_data]}, self._token)
 
@@ -40,5 +40,5 @@ class GIAP:
         self._consumer.send(endpoint, properties, self._token, method=Method.PUT)
 
     @property
-    def unix_timestamp(self) -> int:
-        return int(time.time())
+    def unix_timestamp_in_ms(self) -> int:
+        return int(time.time() * 1000)

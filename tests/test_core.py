@@ -22,14 +22,14 @@ def test_track(mock_consumer, id_, name, properties, ip_address, token):
     assert args[2] == token
 
     data = args[1]["events"][0]
-    assert data["_distinct_id"] == str(id_)
-    assert data["_name"] == name
-    assert isinstance(data["_time"], int)
-    assert "_lib" in data
-    assert "_lib_version" in data
+    assert data["$distinct_id"] == str(id_)
+    assert data["$name"] == name
+    assert isinstance(data["$time"], int)
+    assert "$lib" in data
+    assert "$lib_version" in data
 
     if ip_address is not None:
-        assert data["_sender_ip"] == ip_address
+        assert data["$sender_ip"] == ip_address
 
     assert set(properties.items()).issubset(data.items())
 
