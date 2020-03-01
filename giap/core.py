@@ -6,9 +6,9 @@ from giap.meta import __lib_name__, __version__
 
 
 class GIAP:
-    def __init__(self, token: str):
+    def __init__(self, token: str, base_url: str):
         self._token: str = token
-        self._consumer: ConsumerInterface = get_consumer()
+        self._consumer: ConsumerInterface = get_consumer(base_url)
 
     def track(
         self,

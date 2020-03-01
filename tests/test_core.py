@@ -13,7 +13,7 @@ from giap.core import GIAP
     st.text(),
 )
 def test_track(mock_consumer, id_, name, properties, ip_address, token):
-    giap = GIAP(token)
+    giap = GIAP(token, "")
 
     giap.track(id_, name, properties, ip_address)
 
@@ -40,7 +40,7 @@ def test_track(mock_consumer, id_, name, properties, ip_address, token):
     st.text(),
 )
 def test_set_profile_properties(mock_consumer, id_, properties, token):
-    giap = GIAP(token)
+    giap = GIAP(token, "")
 
     giap.set_profile_properties(id_, properties)
 

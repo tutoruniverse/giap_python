@@ -8,10 +8,6 @@ from ..interface import ConsumerInterface
 
 
 class Consumer(ConsumerInterface):
-    @property
-    def base_url(self) -> str:
-        return ""
-
     def send(
         self,
         endpoint: str,

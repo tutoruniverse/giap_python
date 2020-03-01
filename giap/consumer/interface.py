@@ -5,7 +5,13 @@ from .enums import Method
 
 
 class ConsumerInterface(ABC):
-    __slots__ = ("base_url",)
+    def __init__(self, base_url: str):
+        if base_url.endswith("/"):
+            raise ValueError(
+                f"The base URL should not end with a slash, received '{base_url}'"
+            )
+
+        self.base_url: str = base_url
 
     @abstractmethod
     def send(

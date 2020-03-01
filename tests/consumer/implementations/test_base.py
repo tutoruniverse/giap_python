@@ -13,7 +13,7 @@ from giap.errors import ConsumerError
 def test_base_consumer(mocker, endpoint, data, token):
     mock_request = mocker.patch("giap.consumer.implementations.base.requests.request")
 
-    consumer = Consumer()
+    consumer = Consumer("")
 
     consumer.send(endpoint, data, token)
 
@@ -34,7 +34,7 @@ def test_base_consumer_error(mocker, endpoint, data, token):
         side_effect=RequestException,
     )
 
-    consumer = Consumer()
+    consumer = Consumer("")
 
     with pytest.raises(ConsumerError) as exc_info:
         consumer.send(endpoint, data, token)

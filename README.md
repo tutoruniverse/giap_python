@@ -48,10 +48,11 @@ These instructions will get you a copy of the project up and running on your loc
 from giap import GIAP
 
 
-TOKEN = f"123456abc"
+TOKEN = "123456abc"
+BASE_URL = "https://analytics-api.got-it.io"
 USER_ID = 123
 
-giap = GIAP(TOKEN)
+giap = GIAP(TOKEN, BASE_URL)
 
 # Track an event
 giap.track(USER_ID, "purchase", {"product_id": "EG1_credit16"})
