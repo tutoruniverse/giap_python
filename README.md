@@ -59,4 +59,7 @@ giap.track(USER_ID, "purchase", {"product_id": "EG1_credit16"})
 
 # Set properties for a profile
 giap.set_profile_properties(USER_ID, {"email": "info@gotitapp.co"})
+
+# Increase value of a profile property
+giap.increase(USER_ID, 'count', 100)
 ```
