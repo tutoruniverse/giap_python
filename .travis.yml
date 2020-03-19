@@ -1,0 +1,25 @@
+language: python
+os: linux
+dist: xenial
+python:
+  - "3.6"
+jobs:
+  include:
+    - env:
+        - JOB=linting
+      install:
+        - pip install pre-commit
+        - pre-commit install
+      script:
+        - pre-commit run --all-files
+    - env:
+        - JOB=testing
+      install:
+        - pip install poetry coveralls
+        - poetry install
+      script:
+        - pytest --cov=giap/
+      after_success:
+        - coveralls
+notifications:
+  slack: gotitai:9P4JArPIOHaVaIWKHynjYJuM
