@@ -8,7 +8,7 @@ from giap.errors import ConsumerError
 
 
 @given(
-    st.text().map(lambda t: f"/{t}"), st.dictionaries(st.text(), st.text()), st.text()
+    st.text().map(lambda t: "/{t}".format(t=t)), st.dictionaries(st.text(), st.text()), st.text()
 )
 def test_base_consumer(mocker, endpoint, data, token):
     mock_request = mocker.patch("giap.consumer.implementations.base.requests.request")
@@ -19,14 +19,14 @@ def test_base_consumer(mocker, endpoint, data, token):
 
     mock_request.assert_called_once_with(
         "post",
-        f"{consumer.base_url}{endpoint}",
+        "{}{}".format(consumer.base_url,endpoint),
         json=data,
-        headers={"Authorization": f"Bearer {token}"},
+        headers={"Authorization": "Bearer {}".format(token)},
     )
 
 
 @given(
-    st.text().map(lambda t: f"/{t}"), st.dictionaries(st.text(), st.text()), st.text()
+    st.text().map(lambda t: "/{t}".format(t=t)), st.dictionaries(st.text(), st.text()), st.text()
 )
 def test_base_consumer_error(mocker, endpoint, data, token):
     mocker.patch(
