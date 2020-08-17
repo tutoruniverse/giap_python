@@ -45,7 +45,7 @@ def test_set_profile_properties(mock_consumer, id_, properties, token):
     giap.set_profile_properties(id_, properties)
 
     args = mock_consumer.send.call_args_list[-1][0]
-    assert args == (f"/profiles/{id_}", properties, token)
+    assert args == ("/profiles/{}".format(id_), properties, token)
 
     kwargs = mock_consumer.send.call_args_list[-1][1]
     assert kwargs["method"] is Method.PUT
@@ -64,7 +64,7 @@ def test_increase(mock_consumer, id_, property_name, value, token):
 
     args = mock_consumer.send.call_args_list[-1][0]
     data = {"operation": Operation.INCREASE, "value": value}
-    assert args == (f"/profiles/{id_}/{property_name}", data, token)
+    assert args == ("/profiles/{id_}/{property_name}".format(id_=id_, property_name=property_name), data, token)
 
     kwargs = mock_consumer.send.call_args_list[-1][1]
     assert kwargs["method"] is Method.PUT
@@ -83,7 +83,7 @@ def test_append(mock_consumer, id_, property_name, value, token):
 
     args = mock_consumer.send.call_args_list[-1][0]
     data = {"operation": Operation.APPEND, "value": value}
-    assert args == (f"/profiles/{id_}/{property_name}", data, token)
+    assert args == ("/profiles/{id_}/{property_name}".format(id_=id_, property_name=property_name), data, token)
 
     kwargs = mock_consumer.send.call_args_list[-1][1]
     assert kwargs["method"] is Method.PUT
@@ -102,7 +102,7 @@ def test_remove(mock_consumer, id_, property_name, value, token):
 
     args = mock_consumer.send.call_args_list[-1][0]
     data = {"operation": Operation.REMOVE, "value": value}
-    assert args == (f"/profiles/{id_}/{property_name}", data, token)
+    assert args == ("/profiles/{id_}/{property_name}".format(id_=id_, property_name=property_name), data, token)
 
     kwargs = mock_consumer.send.call_args_list[-1][1]
     assert kwargs["method"] is Method.PUT

@@ -1,25 +1,17 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict
 
 from .enums import Method
 
 
 class ConsumerInterface(ABC):
-    def __init__(self, base_url: str):
+    def __init__(self, base_url):
         if base_url.endswith("/"):
             raise ValueError(
-                f"The base URL should not end with a slash, received '{base_url}'"
+                "The base URL should not end with a slash, received '{base_url}'".format(base_url=base_url)
             )
 
-        self.base_url: str = base_url
+        self.base_url = base_url
 
     @abstractmethod
-    def send(
-        self,
-        endpoint: str,
-        data: Dict[str, Any],
-        token: str,
-        *,
-        method: Method = Method.POST,
-    ):
+    def send(self, endpoint, data, token, *, method=Method.POST):
         pass
